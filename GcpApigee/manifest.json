@@ -1,0 +1,14 @@
+﻿{
+  "extensions": {
+    "Keyfactor.Orchestrators.Extensions.IOrchestratorJobExtension": {
+      "CertStores.GcpApigee.Inventory": {
+        "assemblypath": "GcpApigee.dll",
+        "TypeFullName": "Keyfactor.Extensions.Orchestrator.GcpApigee.Jobs.Inventory"
+      },
+      "CertStores.GcpApigee.Management": {
+        "assemblypath": "GcpApigee.dll",
+        "TypeFullName": "Keyfactor.Extensions.Orchestrator.GcpApigee.Jobs.Management"
+      }
+    }
+  }
+}

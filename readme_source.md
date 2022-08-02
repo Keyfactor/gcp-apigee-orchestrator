@@ -1,24 +1,8 @@
-# Google Cloud Provider Certificate Manager
-
-Google Certificate Manager Orchestrator for Add, Remove and Inventory.
-
-#### Integration status: Pilot - Ready for use in test environments. Not for use in production.
-
-## About the Keyfactor Universal Orchestrator Capability
-
-This repository contains a Universal Orchestrator Capability which is a plugin to the Keyfactor Universal Orchestrator. Within the Keyfactor Platform, Orchestrators are used to manage “certificate stores” &mdash; collections of certificates and roots of trust that are found within and used by various applications.
-
-The Universal Orchestrator is part of the Keyfactor software distribution and is available via the Keyfactor customer portal. For general instructions on installing Capabilities, see the “Keyfactor Command Orchestrator Installation and Configuration Guide” section of the Keyfactor documentation. For configuration details of this specific Capability, see below in this readme.
-
-The Universal Orchestrator is the successor to the Windows Orchestrator. This Capability plugin only works with the Universal Orchestrator and does not work with the Windows Orchestrator.
-
----
-
-**Google Cloud Platform Certificate Manager**
+**Remote GCP Apigee**
 
 **Overview**
 
-The GCP Certificate Manager Orchestrator remotely manages certificates on the Google Cloud Platform Certificate Manager Product.
+The GCP Certificate Manager Orchestrator remotely manages certificates on the Google Cloud Platform Certificate Manager Product
 
 This agent implements three job types – Inventory, Management Add, and Management Remove. Below are the steps necessary to configure this AnyAgent.  It supports adding certificates with or without private keys.
 
@@ -42,7 +26,7 @@ SETTING TAB  |  CONFIG ELEMENT	| DESCRIPTION
 ------|-----------|------------------
 Basic |Name	|Descriptive name for the Store Type.  Google Cloud Certificate Manager can be used.
 Basic |Short Name	|The short name that identifies the registered functionality of the orchestrator. Must be GcpCertMgr
-Basic |Custom Capability|Checked with Name GcpApigee
+Basic |Custom Capability|Checked with Name GcpCertManager
 Basic |Job Types	|Inventory, Add, and Remove are the supported job types. 
 Basic |Needs Server	|Must be checked
 Basic |Blueprint Allowed	|Unchecked
@@ -161,5 +145,4 @@ Case Number|Case Name|Case Description|Overwrite Flag|Alias Name|Expected Result
 3a|Try Replace without Overwrite|If user does not use overwrite flag, should error out on same entry replace|False|map12/mentry50/cert50|Error Occurs Saying to Use Overwrite Flag|True
 4|Remove Cert In Map|Try to remove cert in existing map.  Should leave map and delete cert map entry and cert.|N/A|map12/mentry50/cert50|Cert cert50 and map entry mentry50 should be deleted.|True
 4a|Remove Standalone cert (No Map)|Try to remove cert without a map entry or map.|N/A|cert40|Cert cert40 should be deleted.|True
-
 
