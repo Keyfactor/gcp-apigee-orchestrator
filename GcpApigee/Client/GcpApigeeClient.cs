@@ -43,7 +43,7 @@ namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Client
             if (storeProperties != null)
             {
                 _jsonKey = storeProperties["jsonKey"];
-                _restClientUrl = storeProperties["ApigeeBaseUrl"];
+                _restClientUrl = "https://" + config.CertificateStoreDetails.ClientMachine;
                 _isTrustStore = Convert.ToBoolean(storeProperties["isTrustStore"]);
             }
 
@@ -54,12 +54,14 @@ namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Client
 
         public GcpApigeeClient(ManagementJobConfiguration config)
         {
+            Logger = LogHandler.GetClassLogger<GcpApigeeClient>();
             _project = config.CertificateStoreDetails.StorePath;
             var storeProperties =
                 JsonConvert.DeserializeObject<Dictionary<string, string>>(config.CertificateStoreDetails.Properties);
             if (storeProperties != null)
             {
                 _jsonKey = storeProperties["jsonKey"];
+                _restClientUrl = "https://" + config.CertificateStoreDetails.ClientMachine;
                 _isTrustStore = Convert.ToBoolean(storeProperties["isTrustStore"]);
             }
 
@@ -116,7 +118,7 @@ namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Client
          */
         public ApiStatus Add(string certToAdd, string password, string alias, bool overwrite)
         {
-            var addStatus = new ApiStatus {Status = ApiStatus.StatusCode.Success};
+            var addStatus = new ApiStatus { Status = ApiStatus.StatusCode.Success };
 
             try
             {
@@ -389,7 +391,7 @@ namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Client
          */
         public ApiStatus Remove(string alias, string storePath)
         {
-            var removeStatus = new ApiStatus {Status = ApiStatus.StatusCode.Success};
+            var removeStatus = new ApiStatus { Status = ApiStatus.StatusCode.Success };
 
             try
             {
@@ -435,7 +437,7 @@ namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Client
          */
         public ApiStatus Create(string storePath, bool renew)
         {
-            var createStatus = new ApiStatus {Status = ApiStatus.StatusCode.Success};
+            var createStatus = new ApiStatus { Status = ApiStatus.StatusCode.Success };
 
             try
             {
@@ -545,7 +547,7 @@ namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Client
                 cert = new Certificate
                 {
                     AliasName = aliasName,
-                    Certificates = new[] {response.Content}
+                    Certificates = new[] { response.Content }
                 };
 
             return cert;
@@ -566,7 +568,7 @@ namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Client
 
             // Add headers
             request.AddHeader("Authorization", $"Bearer {token}");
-            request.AddHeader("Content-Type", "multipart/form-data;boundary=|");
+            //request.AddHeader("Content-Type", "multipart/form-data;boundary=63c5979328c44e2c869349443a94200e");
             request.AddQueryParameter("format", "keycertfile");
             request.AddQueryParameter("alias", $"{alias}");
 
@@ -579,37 +581,37 @@ namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Client
                 switch (pem.CertType)
                 {
                     case Pem.CertificateType.Cert:
-                    {
-                        // TODO: Not sure this use case will ever get hit
-                        break;
-                    }
+                        {
+                            // TODO: Not sure this use case will ever get hit
+                            break;
+                        }
                     case Pem.CertificateType.CertWithKey:
-                    {
-                        certBody = pem.PemCert;
-                        keyBody = pem.PemKey;
-                        break;
-                    }
+                        {
+                            certBody = pem.PemCert;
+                            keyBody = pem.PemKey;
+                            break;
+                        }
                     case Pem.CertificateType.Intermediate:
-                    {
-                        certBody = certBody + "\r\n\r\n" + pem.PemCert;
-                        break;
-                    }
+                        {
+                            certBody = certBody + "\r\n\r\n" + pem.PemCert;
+                            break;
+                        }
                     case Pem.CertificateType.Root:
-                    {
-                        certBody = certBody + "\r\n\r\n" + pem.PemKey;
-                        break;
-                    }
+                        {
+                            certBody = certBody + "\r\n\r\n" + pem.PemKey;
+                            break;
+                        }
                 }
 
             // Body
-            var boundary = "--|";
-            var endBoundary = "--|--";
+            var boundary = "--63c5979328c44e2c869349443a94200e";
+            var endBoundary = "--63c5979328c44e2c869349443a94200e--";
             var body =
                 $"{boundary}\r\nContent-Disposition: form-data; name=\"certFile\"\r\nContent-Type: text/plain\r\n\r\n{certBody}\r\n" +
                 $"{boundary}\r\nContent-Disposition: form-data; name=\"keyFile\"\r\nContent-Type: text/plain\r\n\r\n{keyBody}\r\n" +
                 $"{boundary}\r\nContent-Disposition: form-data; name=\"password\"\r\nContent-Type: text/plain\r\n\r\n{password}\r\n" +
                 $"{endBoundary}";
-            request.AddParameter("multipart/form-data;boundary=|", body, ParameterType.RequestBody);
+            request.AddParameter("multipart/form-data;boundary=63c5979328c44e2c869349443a94200e", body, ParameterType.RequestBody);
 
             var response = client.Execute(request);
 
@@ -632,6 +634,7 @@ namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Client
             // Add headers
             request.AddHeader("Authorization", $"Bearer {token}");
             request.AddHeader("Content-Type", "multipart/form-data;boundary=|");
+            //request.AddHeader("Content-Type", "multipart/form-data");
             request.AddQueryParameter("format", "keycertfile");
             request.AddQueryParameter("alias", $"{alias}");
 
@@ -774,7 +777,9 @@ namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Client
             // Add body
             var param = new Reference
             {
-                name = refObj.name, description = refObj.description, resourceType = refObj.resourceType,
+                name = refObj.name,
+                description = refObj.description,
+                resourceType = refObj.resourceType,
                 refers = newKeystore
             };
             request.AddJsonBody(param);
@@ -914,7 +919,7 @@ namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Client
             if (certKeyPem != null)
             {
                 var keyIndex =
-                    certKeyPem.PemKey.IndexOf("-----BEGIN ENCRYPTED PRIVATE KEY-----", StringComparison.Ordinal);
+                    certKeyPem.PemCert.IndexOf("-----BEGIN ENCRYPTED PRIVATE KEY-----", StringComparison.Ordinal);
 
                 // Decrypt the private key if it is encrypted
                 if (keyIndex != -1)
