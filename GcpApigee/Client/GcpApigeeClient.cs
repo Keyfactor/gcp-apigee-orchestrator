@@ -6,6 +6,7 @@ using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using Google.Apis.Auth;
 using Google.Apis.Auth.OAuth2;
 using Keyfactor.Extensions.Orchestrator.GcpApigee.Models;
 using Keyfactor.Logging;
@@ -603,19 +604,39 @@ namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Client
                         }
                 }
 
+            
+
+            var postParameters = new Dictionary<string, object>
+            {
+                {"certFile", certBody},
+                {"keyFile", keyBody},
+                {"password", password}
+            };
+
+            // Create request and receive response
+            var userAgent = "Keyfactor Agent";
+            var webResponse = FormUpload.MultipartFormDataPost(resource, userAgent, postParameters);
+            Logger.LogTrace("Got webResponse...");
+            using var responseReader = new StreamReader(webResponse.GetResponseStream() ?? Stream.Null);
+            responseReader.ReadToEnd();
+            var sc = webResponse.StatusCode;
+            webResponse.Close();
+            Logger.MethodExit();
+
+            return sc;
             // Body
-            var boundary = "--63c5979328c44e2c869349443a94200e";
-            var endBoundary = "--63c5979328c44e2c869349443a94200e--";
-            var body =
-                $"{boundary}\r\nContent-Disposition: form-data; name=\"certFile\"\r\nContent-Type: text/plain\r\n\r\n{certBody}\r\n" +
-                $"{boundary}\r\nContent-Disposition: form-data; name=\"keyFile\"\r\nContent-Type: text/plain\r\n\r\n{keyBody}\r\n" +
-                $"{boundary}\r\nContent-Disposition: form-data; name=\"password\"\r\nContent-Type: text/plain\r\n\r\n{password}\r\n" +
-                $"{endBoundary}";
-            request.AddParameter("multipart/form-data;boundary=63c5979328c44e2c869349443a94200e", body, ParameterType.RequestBody);
+            //var boundary = "--63c5979328c44e2c869349443a94200e";
+            //var endBoundary = "--63c5979328c44e2c869349443a94200e--";
+            //var body =
+            //    $"{boundary}\r\nContent-Disposition: form-data; name=\"certFile\"\r\nContent-Type: text/plain\r\n\r\n{certBody}\r\n" +
+            //    $"{boundary}\r\nContent-Disposition: form-data; name=\"keyFile\"\r\nContent-Type: text/plain\r\n\r\n{keyBody}\r\n" +
+            //    $"{boundary}\r\nContent-Disposition: form-data; name=\"password\"\r\nContent-Type: text/plain\r\n\r\n{password}\r\n" +
+            //    $"{endBoundary}";
+            //request.AddParameter("multipart/form-data;boundary=63c5979328c44e2c869349443a94200e", body, ParameterType.RequestBody);
 
-            var response = client.Execute(request);
+            //var response = client.Execute(request);
 
-            return response.StatusCode;
+            //return response.StatusCode;
         }
 
         /**
