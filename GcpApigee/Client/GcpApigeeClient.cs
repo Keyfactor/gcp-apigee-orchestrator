@@ -564,15 +564,9 @@ namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Client
             var client = new RestClient(_restClientUrl);
             var token = GetCredential();
 
-            var resource = $"/v1/{storePath}/aliases";
+            var resource = $"https://apigee.googleapis.com/v1/{storePath}/aliases?format=keycertfile&alias={alias}";
             var request = new RestRequest(resource, Method.Post);
-
-            // Add headers
-            request.AddHeader("Authorization", $"Bearer {token}");
-            //request.AddHeader("Content-Type", "multipart/form-data;boundary=63c5979328c44e2c869349443a94200e");
-            request.AddQueryParameter("format", "keycertfile");
-            request.AddQueryParameter("alias", $"{alias}");
-
+  
             request.AlwaysMultipartFormData = true;
 
             // Create the certificate body
@@ -615,7 +609,7 @@ namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Client
 
             // Create request and receive response
             var userAgent = "Keyfactor Agent";
-            var webResponse = FormUpload.MultipartFormDataPost(resource, userAgent, postParameters);
+            var webResponse = FormUpload.MultipartFormDataPost(resource, userAgent, postParameters,token);
             Logger.LogTrace("Got webResponse...");
             using var responseReader = new StreamReader(webResponse.GetResponseStream() ?? Stream.Null);
             responseReader.ReadToEnd();
@@ -624,19 +618,6 @@ namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Client
             Logger.MethodExit();
 
             return sc;
-            // Body
-            //var boundary = "--63c5979328c44e2c869349443a94200e";
-            //var endBoundary = "--63c5979328c44e2c869349443a94200e--";
-            //var body =
-            //    $"{boundary}\r\nContent-Disposition: form-data; name=\"certFile\"\r\nContent-Type: text/plain\r\n\r\n{certBody}\r\n" +
-            //    $"{boundary}\r\nContent-Disposition: form-data; name=\"keyFile\"\r\nContent-Type: text/plain\r\n\r\n{keyBody}\r\n" +
-            //    $"{boundary}\r\nContent-Disposition: form-data; name=\"password\"\r\nContent-Type: text/plain\r\n\r\n{password}\r\n" +
-            //    $"{endBoundary}";
-            //request.AddParameter("multipart/form-data;boundary=63c5979328c44e2c869349443a94200e", body, ParameterType.RequestBody);
-
-            //var response = client.Execute(request);
-
-            //return response.StatusCode;
         }
 
         /**

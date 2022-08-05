@@ -9,16 +9,16 @@ namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Client
     public static class FormUpload
     {
         private static readonly Encoding Encoding = Encoding.UTF8;
-        public static HttpWebResponse MultipartFormDataPost(string postUrl, string userAgent, Dictionary<string, object> postParameters)
+        public static HttpWebResponse MultipartFormDataPost(string postUrl, string userAgent, Dictionary<string, object> postParameters,string token)
         {
             string formDataBoundary = $"----------{Guid.NewGuid():N}";
             string contentType = "multipart/form-data; boundary=" + formDataBoundary;
 
             byte[] formData = GetMultipartFormData(postParameters, formDataBoundary);
 
-            return PostForm(postUrl, userAgent, contentType, formData);
+            return PostForm(postUrl, userAgent, contentType, formData,token);
         }
-        private static HttpWebResponse PostForm(string postUrl, string userAgent, string contentType, byte[] formData)
+        private static HttpWebResponse PostForm(string postUrl, string userAgent, string contentType, byte[] formData,string token)
         {
             HttpWebRequest request = WebRequest.Create(postUrl) as HttpWebRequest;
 
@@ -35,9 +35,9 @@ namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Client
             request.ContentLength = formData.Length;
 
             // You could add authentication here as well if needed:
-            // request.PreAuthenticate = true;
-            // request.AuthenticationLevel = System.Net.Security.AuthenticationLevel.MutualAuthRequested;
-            // request.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(System.Text.Encoding.Default.GetBytes("username" + ":" + "password")));
+             request.PreAuthenticate = true;
+             request.AuthenticationLevel = System.Net.Security.AuthenticationLevel.MutualAuthRequested;
+             request.Headers.Add("Authorization", "Bearer " + token);
 
             // Send the form data to the request.
             using (Stream requestStream = request.GetRequestStream())
