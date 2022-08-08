@@ -9,35 +9,35 @@ This agent implements three job types – Inventory, Management Add, and Managem
 
 **Google Cloud Configuration**
 
-1. Read up on [Google Certificate Manager](https://cloud.google.com/certificate-manager/docs) and how it works.
+1. Read up on Google Cloud Provider Apigee and how it works.
 2. A Google Service Account is needed with the following permissions (Note: Workload Identity Management Should be used but at the time of the writing it was not available in the .net library yet)
-![](images/ServiceAccountSettings.gif)
-3. The following Api Access is needed:
-![](images/ApiAccessNeeded.gif)
-4. Dowload the Json Credential file as shown below:
-![](images/GoogleKeyJsonDownload.gif)
 
-**1. Create the New Certificate Store Type for the GCP Certificate Manager Orchestrator**
+3. The following Api Access is needed:
+
+4. Dowload the Json Credential file as shown below:
+
+
+**1. Create the New Certificate Store Type for the GCP Apigee Orchestrator**
 
 In Keyfactor Command create a new Certificate Store Type similar to the one below:
 
 #### STORE TYPE CONFIGURATION
 SETTING TAB  |  CONFIG ELEMENT	| DESCRIPTION
 ------|-----------|------------------
-Basic |Name	|Descriptive name for the Store Type.  Google Cloud Certificate Manager can be used.
-Basic |Short Name	|The short name that identifies the registered functionality of the orchestrator. Must be GcpCertMgr
-Basic |Custom Capability|Checked with Name GcpCertManager
-Basic |Job Types	|Inventory, Add, and Remove are the supported job types. 
+Basic |Name	|Descriptive name for the Store Type.  Google Cloud Provider Apigee can be used.
+Basic |Short Name	|The short name that identifies the registered functionality of the orchestrator. Must be GcpApigee
+Basic |Custom Capability|Unchecked
+Basic |Job Types	|Inventory, Add, Create and Remove are the supported job types. 
 Basic |Needs Server	|Must be checked
 Basic |Blueprint Allowed	|Unchecked
 Basic |Requires Store Password	|Determines if a store password is required when configuring an individual store.  This must be unchecked.
 Basic |Supports Entry Password	|Determined if an individual entry within a store can have a password.  This must be unchecked.
 Advanced |Store Path Type| Determines how the user will enter the store path when setting up the cert store.  Freeform
 Advanced |Supports Custom Alias	|Determines if an individual entry within a store can have a custom Alias.  This must be Required
-Advanced |Private Key Handling |Determines how the orchestrator deals with private keys.  Required
+Advanced |Private Key Handling |Determines how the orchestrator deals with private keys.  Optional
 Advanced |PFX Password Style |Determines password style for the PFX Password. Default
-Custom Fields|Google Cloud Platform Project Location|Name:Location Display Name:Location Type:String Default Value:global Required:True
-Custom Fields|Google Cloud Platform Project Number|Name:Project Number Display Name:Project Number Type:String Default Value:N/A Required:True
+Custom Fields|Is Trust Store?|Name:IsTrustStore Display Name:Is Trust Store Type:String Default Value:None Required:True
+Custom Fields|Google Json Key File|Name:Google Json Key File Display Name:jsonKey Type:String Default Value:N/A Required:True
 Entry Parameters|N/A| There are no Entry Parameters
 
 **Basic Settings:**
@@ -51,6 +51,8 @@ Entry Parameters|N/A| There are no Entry Parameters
 **Custom Fields:**
 
 ![](images/CertStoreType-CustomFields.gif)
+![](images/CertStoreType-CustomFields1.gif)
+![](images/CertStoreType-CustomFields2.gif)
 
 **Entry Params:**
 
@@ -136,13 +138,4 @@ Password |This is not necessary.
 Case Number|Case Name|Case Description|Overwrite Flag|Alias Name|Expected Results|Passed
 ------------|---------|----------------|--------------|----------|----------------|--------------
 1|Fresh Add with New Map and Entry|Will create new map, map entry and cert|False|map12/mentry12/cert12|New Map will be created, New Map Entry Created, New Cert Created|True
-1a|Try Replace without Overwrite|If user does not use overwrite flag, should error out on same entry replace|False|map12/mentry12/cert12|Error Occurs Saying to Use Overwrite Flag|True
-1b|Try Replace with Overwrite|Should  delete and re-insert mapentry and certificate|True|map12/mentry12/cert12|Replaced Cert Map Entry and Certificate|True
-2|Fresh Add with Cert Only (No Map)|Will create cert that is not tied to map|False|cert40|Created Certificate with alias cert40|True
-2a|Try Replace without Overwrite|If user does not use overwrite flag, should error out on same entry replace|False|Cert40|Error Occurs Saying to Use Overwrite Flag|True
-2b|Try Replace with Overwrite|If user uses overwrite will replace cert|True|cert40|Certificate with be replaced with alias of cert40|True
-3|Fresh Add with new entry to existing map|Will create cert where entry is tied to an existing map|False|map12/mentry50/cert50|Created Certificate with alias map12/mentry50/cert50|True
-3a|Try Replace without Overwrite|If user does not use overwrite flag, should error out on same entry replace|False|map12/mentry50/cert50|Error Occurs Saying to Use Overwrite Flag|True
-4|Remove Cert In Map|Try to remove cert in existing map.  Should leave map and delete cert map entry and cert.|N/A|map12/mentry50/cert50|Cert cert50 and map entry mentry50 should be deleted.|True
-4a|Remove Standalone cert (No Map)|Try to remove cert without a map entry or map.|N/A|cert40|Cert cert40 should be deleted.|True
 
