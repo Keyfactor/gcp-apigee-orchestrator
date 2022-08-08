@@ -1218,7 +1218,7 @@ namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Client
                     throw new Exception("A service key must be provided in the certificate store setup.");
 
                 var credential = GoogleCredential.FromJson(_jsonKey);
-                Logger.LogTrace($"Got Google Credential: {JsonConvert.SerializeObject(credential)}");
+                Logger.LogTrace("Got Google Credential");
 
                 // Check for additional scoping on credential
                 if (credential.IsCreateScopedRequired)
