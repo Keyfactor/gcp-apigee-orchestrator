@@ -2,9 +2,9 @@
 
 **Overview**
 
-The GCP Certificate Manager Orchestrator remotely manages certificates on the Google Cloud Platform Certificate Manager Product
+Apigee is a Google Cloud Platform GCP software product for developing and managing APIs.  The remote GCP Apigee Orchestrator allows for the remote management of Apigee certificate stores.  Inventory and Management functions are supported.
 
-This agent implements three job types – Inventory, Management Add, and Management Remove. Below are the steps necessary to configure this AnyAgent.  It supports adding certificates with or without private keys.
+This agent implements four job types – Inventory, Management Add, Create and Management Remove. Below are the steps necessary to configure this Orchestrator.
 
 
 **Google Cloud Configuration**
@@ -58,25 +58,23 @@ Entry Parameters|N/A| There are no Entry Parameters
 
 ![](images/CertStoreType-EntryParameters.gif)
 
-**2. Register the GCP Certificate Manager Orchestrator with Keyfactor**
+**2. Register the GCP Apigee Orchestrator with Keyfactor**
 See Keyfactor InstallingKeyfactorOrchestrators.pdf Documentation.  Get from your Keyfactor contact/representative.
 
-**3. Create a GCP Certificate Manager Certificate Store within Keyfactor Command**
+**3. Create a GCP Apigee Certificate Store within Keyfactor Command**
 In Keyfactor Command create a new Certificate Store similar to the one below
 
-![](images/CertStoreSettings-1.gif)
-![](images/CertStoreSettings-2.gif)
-![](images/GoogleCloudProjectInfo.gif)
+![](images/CertStoreSettings.gif)
 
 #### STORE CONFIGURATION 
 CONFIG ELEMENT	|DESCRIPTION
 ----------------|---------------
-Category	|The type of certificate store to be configured. Select category based on the display name configured above "GCP Certificate Manager".
+Category	|The type of certificate store to be configured. Select category based on the display name configured above "GCP Apigee".
 Container	|This is a logical grouping of like stores. This configuration is optional and does not impact the functionality of the store.
-Client Machine	|The name of the Google Certificate Manager Credentials File.  This file should be stored in the same directory as the Orchestrator binary.  Sample is "favorable-tree-346417-feb22d67de35.json".
-Store Path	|This will be the ProjectId of the Google Cloud Project.  Sample here is "favorable-tree-346417".  See above image.
-Location|global is the default but could be another region based on the project.
-Project Number| As shown in the above image, this can be obtained from the project information in Google Cloud.
+Client Machine	|The Base URL for the GCP Apigee REST Api. Should be apigee.googleapis.com
+Store Path	|This will point to the Apigee keystore that you are managing, and must be provided in the following format, where {org}, {env}, and {keystore} will be replaced with your environment-specific values organizations/{org}/environments/{env}/keystores/{keystore} .
+Google Json Key File|Will need updated with the JSON key tied to the Apigee service account. You can copy and paste the entire key Json in the textboxes.
+Is Trust Store?|Should be checked if the Apigee keystore being managed is a truststore.
 Orchestrator	|This is the orchestrator server registered with the appropriate capabilities to manage this certificate store type. 
 Inventory Schedule	|The interval that the system will use to report on what certificates are currently in the store. 
 Use SSL	|This should be checked.
@@ -87,55 +85,12 @@ Password |This is not necessary.
 
 #### Usage
 
-**Adding New Certificate No Map Entry**
-
-![](images/AddCertificateNoMapEntry.gif)
-
-*** 
-
-**Adding New Certificate With Map Entry**
-
-![](images/AddCertificateWithMapEntry.gif)
-
-*** 
-
-**Replace Certficate With Map Entry**
-
-![](images/ReplaceCertificateMapEntry.gif)
-
-*** 
-
-**Replace Certficate No Map Entry**
-
-![](images/ReplaceCertificateNoMapEntry.gif)
-
-*** 
-
-**Replace Certficate With Map Entry**
-
-![](images/ReplaceCertificateMapEntry.gif)
-
-*** 
-
-**Replace Certficate No Map Entry**
-
-![](images/ReplaceCertificateNoMapEntry.gif)
-
-***
-
-**Remove Certificate Map Entry**
-
-![](images/RemoveCertifcateMapEntry.gif)
-
-*** 
-
-**Remove Certficate No Map Entry**
-
-![](images/RemoveCertificateNoMapEntry.gif)
-
 
 #### TEST CASES
-Case Number|Case Name|Case Description|Overwrite Flag|Alias Name|Expected Results|Passed
-------------|---------|----------------|--------------|----------|----------------|--------------
-1|Fresh Add with New Map and Entry|Will create new map, map entry and cert|False|map12/mentry12/cert12|New Map will be created, New Map Entry Created, New Cert Created|True
+Case Number|Case Name|Case Description|Overwrite Flag?|Trust Store?|Keystore Exists?|Existing Alias?|Alias Name|Expected Results|Passed
+------------|---------|----------------|--------------|----------|----------------|--------------|---------------|--------------|------------
+1|Fresh Add Trust Store|This will test adding a new Alias to a Keystore that does not have any aliases.|True|True|True|False|TC1|Alias/Certificate will be added.|True
+2|Replace Without Overwrite Trust Store|This will test the Overwrite Flag being false during a replace|False|True|True|True|TC1|Error will occur saying "Alias already Exists".|True
+3|Replace With Overwrite Trust Store|This will test the Overwrite Flag being false during a replace|True|True|True|True|TC1|Error will occur saying "Renewals are not supported for Trust Stores.".|True
+4|Fresh Add |This will test adding a new Alias to a Keystore that does not have any aliases.|True|False|True|False|TC4|Alias/Certificate will be added.|True
 
