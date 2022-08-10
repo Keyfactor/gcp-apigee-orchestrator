@@ -88,7 +88,7 @@ Password |This is not necessary.
 
 #### TEST CASES
 Case Number|Case Name|Case Description|Overwrite Flag?|Trust Store?|Keystore Exists?|Existing Alias?|Alias Name|KeyStore Name|Expected Results|Passed|Screenshots
-------------|---------|----------------|--------------|----------|----------------|--------------|---------------|------------|-----------|------------|
+------------|---------|----------------|--------------|----------|----------------|--------------|---------------|------------|-----------|------------|-----------
 1|Fresh Add Trust Store|This will test adding a new Alias to a Keystore that does not have any aliases.|True|True|True|False|TC1|KS1|Alias/Certificate will be added.|True|![](images/TC1Results.gif)
 2|Add Additional Add Trust Store|This will test adding a new Alias to a Keystore that has one Alias Already.|True|True|True|False|TC2|KS1|Alias/Certificate will be added.|True|![](images/TC2Results.gif)
 3|Replace Without Overwrite Trust Store|This will test the Overwrite Flag being false during a replace|False|True|True|True|TC1|KS1|Error will occur saying "Alias already Exists".|True|![](images/TC3Results.gif)
