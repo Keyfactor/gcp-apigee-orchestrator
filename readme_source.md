@@ -10,12 +10,40 @@ This agent implements four job types – Inventory, Management Add, Create and M
 **Google Cloud Configuration**
 
 1. Read up on Google Cloud Provider Apigee and how it works.
-2. A Google Service Account is needed with the following permissions (Note: Workload Identity Management Should be used but at the time of the writing it was not available in the .net library yet)
 
-3. The following Api Access is needed:
+User must create a service account through the Google Cloud Console that will be used to generate an OAuth 2.0 token when making Apigee API requests 
 
-4. Dowload the Json Credential file as shown below:
+Once the Google project is selected, click on the menu on the left and go to APIs & Services 
 
+Click on Credentials 
+
+Create new Service Account 
+
+If creating credentials for the first time, will need to Configure Consent Screen 
+
+*Not sure if applicable to Service Account, only Client IDs 
+
+Settings Applied: 
+
+Service account name = Keyfactor-ApigeeAPI 
+
+Service account description 
+
+Select role:	 
+
+Quick Access > Basic > Owner 
+
+Click Done 
+
+Create service account key 
+
+Select the service account 
+
+Go to Keys 
+
+Add key > Create new key 
+
+Make sure the key is a JSON 
 
 **1. Create the New Certificate Store Type for the GCP Apigee Orchestrator**
 
