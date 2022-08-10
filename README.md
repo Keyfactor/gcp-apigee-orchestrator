@@ -45,40 +45,40 @@ This agent implements four job types – Inventory, Management Add, Create and M
 
 1. Read up on Google Cloud Provider Apigee and how it works.
 
-User must create a service account through the Google Cloud Console that will be used to generate an OAuth 2.0 token when making Apigee API requests 
+	*User must create a service account through the Google Cloud Console that will be used to generate an OAuth 2.0 token when making Apigee API requests 
 
-Once the Google project is selected, click on the menu on the left and go to APIs & Services 
+		*Once the Google project is selected, click on the menu on the left and go to APIs & Services 
 
-Click on Credentials 
+		*Click on Credentials 
 
-Create new Service Account 
+		*Create new Service Account 
 
-If creating credentials for the first time, will need to Configure Consent Screen 
+	*If creating credentials for the first time, will need to Configure Consent Screen 
 
-*Not sure if applicable to Service Account, only Client IDs 
+		*Not sure if applicable to Service Account, only Client IDs 
 
-Settings Applied: 
+			*Settings Applied: 
 
-Service account name = Keyfactor-ApigeeAPI 
+			*Service account name = Keyfactor-ApigeeAPI 
 
-Service account description 
+			*Service account description 
 
-Select role:	 
+			*Select role:	 
 
-Quick Access > Basic > Owner 
+				*Quick Access > Basic > Owner 
 
-Click Done 
+				*Click Done 
 
-Create service account key 
+	*Create service account key 
 
-Select the service account 
+		*Select the service account 
 
-Go to Keys 
+		*Go to Keys 
 
-Add key > Create new key 
+		*Add key > Create new key 
 
-Make sure the key is a JSON 
-
+		*Make sure the key is a JSON 
+*** 
 **1. Create the New Certificate Store Type for the GCP Apigee Orchestrator**
 
 In Keyfactor Command create a new Certificate Store Type similar to the one below:
