@@ -293,8 +293,7 @@ namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Jobs
                     {
                         Result = OrchestratorJobStatusJobResult.Failure,
                         JobHistoryId = config.JobHistoryId,
-                        FailureMessage =
-                            "An Error Occured during the Add Process"
+                        FailureMessage =r1.Message
                     };
                 }
 
