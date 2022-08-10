@@ -299,7 +299,7 @@ namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Client
                     // SCENARIO 6 => Overwrite flag is TRUE and 1 alias exists that matches incoming alias (RENEWAL)
                     if (overwrite && aliasExists && managedAliasCount == 1)
                     {
-                        Logger.LogTrace("In Scenario 4 and 5...");
+                        Logger.LogTrace("In Scenario 6...");
 
                         // Create a new temporary keystore
                         var tempKeystore = keystore + KsTempExtension;

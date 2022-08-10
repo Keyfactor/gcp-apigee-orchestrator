@@ -87,12 +87,12 @@ Password |This is not necessary.
 
 
 #### TEST CASES
-Case Number|Case Name|Case Description|Overwrite Flag?|Trust Store?|Keystore Exists?|Existing Alias?|Alias Name|KeyStore Name|Expected Results|Passed
-------------|---------|----------------|--------------|----------|----------------|--------------|---------------|------------|-----------|------------
-1|Fresh Add Trust Store|This will test adding a new Alias to a Keystore that does not have any aliases.|True|True|True|False|TC1|KS1|Alias/Certificate will be added.|True
-2|Add Additional Add Trust Store|This will test adding a new Alias to a Keystore that has one Alias Already.|True|True|True|False|TC2|KS1|Alias/Certificate will be added.|True
-3|Replace Without Overwrite Trust Store|This will test the Overwrite Flag being false during a replace|False|True|True|True|TC1|KS1|Error will occur saying "Alias already Exists".|True
-4|Replace With Overwrite Trust Store|This will test the Overwrite Flag being false during a replace|True|True|True|True|TC1|KS1|Error will occur saying "Renewals are not supported for Trust Stores.".|True
-5|Remove From Trust Store |This will test removing an alias from a Trust Store|N/A|True|True|True|TC1|KS1|Alias/Certificate will be removed.|True
-6|Trust Store Inventory |This will test the inventory of an item from the Trust Store|N/A|True|True|True|TC2|KS1|TC2 Alias/Certificate will be Inventoried.|True
+Case Number|Case Name|Case Description|Overwrite Flag?|Trust Store?|Keystore Exists?|Existing Alias?|Alias Name|KeyStore Name|Expected Results|Passed|Screenshots
+------------|---------|----------------|--------------|----------|----------------|--------------|---------------|------------|-----------|------------|
+1|Fresh Add Trust Store|This will test adding a new Alias to a Keystore that does not have any aliases.|True|True|True|False|TC1|KS1|Alias/Certificate will be added.|True|![](images/TC1Results.gif)
+2|Add Additional Add Trust Store|This will test adding a new Alias to a Keystore that has one Alias Already.|True|True|True|False|TC2|KS1|Alias/Certificate will be added.|True|![](images/TC2Results.gif)
+3|Replace Without Overwrite Trust Store|This will test the Overwrite Flag being false during a replace|False|True|True|True|TC1|KS1|Error will occur saying "Alias already Exists".|True|![](images/TC3Results.gif)
+4|Replace With Overwrite Trust Store|This will test the Overwrite Flag being false during a replace|True|True|True|True|TC1|KS1|Error will occur saying "Renewals are not supported for Trust Stores.".|True|![](images/TC4Results.gif)
+5|Remove From Trust Store |This will test removing an alias from a Trust Store|N/A|True|True|True|TC1|KS1|Alias/Certificate will be removed.|True|![](images/TC5Results.gif)
+6|Trust Store Inventory |This will test the inventory of an item from the Trust Store|N/A|True|True|True|TC2|KS1|TC2 Alias/Certificate will be Inventoried.|True|![](images/TC6Results.gif)
 
