@@ -41,6 +41,7 @@ Apigee is a Google Cloud Platform GCP software product for developing and managi
 This agent implements four job types – Inventory, Management Add, Create and Management Remove. Below are the steps necessary to configure this Orchestrator.
 
 
+***
 **Google Cloud Configuration**
 
 1. Read up on Google Cloud Provider Apigee and how it works.
@@ -78,6 +79,11 @@ This agent implements four job types – Inventory, Management Add, Create and M
 		*Add key > Create new key 
 
 		*Make sure the key is a JSON 
+
+![](images/Google-Cloud Apigee Api)
+![](images/ServiceAccountDetails.gif)
+![](images/ServiceAccountPermissions.gif)
+![](images/ServiceAccountJson.gif)
 *** 
 **1. Create the New Certificate Store Type for the GCP Apigee Orchestrator**
 
