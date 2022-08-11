@@ -41,16 +41,50 @@ Apigee is a Google Cloud Platform GCP software product for developing and managi
 This agent implements four job types – Inventory, Management Add, Create and Management Remove. Below are the steps necessary to configure this Orchestrator.
 
 
+***
 **Google Cloud Configuration**
 
 1. Read up on Google Cloud Provider Apigee and how it works.
-2. A Google Service Account is needed with the following permissions (Note: Workload Identity Management Should be used but at the time of the writing it was not available in the .net library yet)
 
-3. The following Api Access is needed:
+	*User must create a service account through the Google Cloud Console that will be used to generate an OAuth 2.0 token when making Apigee API requests 
 
-4. Dowload the Json Credential file as shown below:
+		*Once the Google project is selected, click on the menu on the left and go to APIs & Services 
 
+		*Click on Credentials 
 
+		*Create new Service Account 
+
+	*If creating credentials for the first time, will need to Configure Consent Screen 
+
+		*Not sure if applicable to Service Account, only Client IDs 
+
+			*Settings Applied: 
+
+			*Service account name = Keyfactor-ApigeeAPI 
+
+			*Service account description 
+
+			*Select role:	 
+
+				*Quick Access > Basic > Owner 
+
+				*Click Done 
+
+	*Create service account key 
+
+		*Select the service account 
+
+		*Go to Keys 
+
+		*Add key > Create new key 
+
+		*Make sure the key is a JSON 
+
+![](images/Google-Cloud Apigee Api.gif)
+![](images/ServiceAccountDetails.gif)
+![](images/ServiceAccountPermissions.gif)
+![](images/ServiceAccountJson.gif)
+*** 
 **1. Create the New Certificate Store Type for the GCP Apigee Orchestrator**
 
 In Keyfactor Command create a new Certificate Store Type similar to the one below:
@@ -141,6 +175,6 @@ Case Number|Case Name|Case Description|Overwrite Flag?|Trust Store?|Keystore Exi
 16|Add To Trust Store That Does Not Exist In Apigee|This will test adding a certificate without a private key to a Trust Store that does not exist in Apigee.|False|True|False|False|False|TC16|KS3|Unable to find keystore in Apigee|True|![](images/TC16Results.gif)
 17|Add To Key Store That Does Not Exist In Apigee|This will test adding a certificate with a private key to a Key Store that does not exist in Apigee.|False|False|False|False|True|TC17|KS4|Unable to find keystore in Apigee|True|![](images/TC17Results.gif)
 18|Create Trust Store|This will test creating a Trust Store in Apigee|N/A|True|False|N/A|N/A|TC18|KS3|Trust Store Gets Created In Apigee|True|![](images/TC18Results.gif)
-19|Create Key Store|This will test creating a Key Store in Apigee|N/A|False|False|N/A|N/A|TC17|KS4|Key Store is created in Apigee|False|![](images/TC19Results.gif)
+19|Create Key Store|This will test creating a Key Store in Apigee|N/A|False|False|N/A|N/A|TC17|KS5|Key Store is created in Apigee|True|![](images/TC19Results.gif)
 
 
