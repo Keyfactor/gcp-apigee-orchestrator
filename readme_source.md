@@ -46,7 +46,7 @@ This agent implements four job types – Inventory, Management Add, Create and M
 
 		*Make sure the key is a JSON 
 
-![](images/Google-Cloud Apigee Api)
+![](images/Google-Cloud Apigee Api.gif)
 ![](images/ServiceAccountDetails.gif)
 ![](images/ServiceAccountPermissions.gif)
 ![](images/ServiceAccountJson.gif)
