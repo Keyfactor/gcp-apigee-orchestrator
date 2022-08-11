@@ -7,6 +7,7 @@ Apigee is a Google Cloud Platform GCP software product for developing and managi
 This agent implements four job types – Inventory, Management Add, Create and Management Remove. Below are the steps necessary to configure this Orchestrator.
 
 
+***
 **Google Cloud Configuration**
 
 1. Read up on Google Cloud Provider Apigee and how it works.
@@ -44,6 +45,11 @@ This agent implements four job types – Inventory, Management Add, Create and M
 		*Add key > Create new key 
 
 		*Make sure the key is a JSON 
+
+![](images/Google-Cloud Apigee Api.gif)
+![](images/ServiceAccountDetails.gif)
+![](images/ServiceAccountPermissions.gif)
+![](images/ServiceAccountJson.gif)
 *** 
 **1. Create the New Certificate Store Type for the GCP Apigee Orchestrator**
 
@@ -135,5 +141,5 @@ Case Number|Case Name|Case Description|Overwrite Flag?|Trust Store?|Keystore Exi
 16|Add To Trust Store That Does Not Exist In Apigee|This will test adding a certificate without a private key to a Trust Store that does not exist in Apigee.|False|True|False|False|False|TC16|KS3|Unable to find keystore in Apigee|True|![](images/TC16Results.gif)
 17|Add To Key Store That Does Not Exist In Apigee|This will test adding a certificate with a private key to a Key Store that does not exist in Apigee.|False|False|False|False|True|TC17|KS4|Unable to find keystore in Apigee|True|![](images/TC17Results.gif)
 18|Create Trust Store|This will test creating a Trust Store in Apigee|N/A|True|False|N/A|N/A|TC18|KS3|Trust Store Gets Created In Apigee|True|![](images/TC18Results.gif)
-19|Create Key Store|This will test creating a Key Store in Apigee|N/A|False|False|N/A|N/A|TC17|KS4|Key Store is created in Apigee|False|![](images/TC19Results.gif)
+19|Create Key Store|This will test creating a Key Store in Apigee|N/A|False|False|N/A|N/A|TC17|KS5|Key Store is created in Apigee|True|![](images/TC19Results.gif)
 
