@@ -2,7 +2,7 @@
 
 Apigee is a Google Cloud Platform (GCP) software product for developing and managing APIs. The remote GCP Apigee AnyAgent allows for the remote management of Apigee certificate stores. Inventory and Management functions are supported. The AnyAgent performs operations utilizing the Apigee REST API.
 
-#### Integration status: Prototype - Demonstration quality. Not for use in customer environments.
+#### Integration status: Production - Ready for use in production environments.
 
 ## About the Keyfactor Universal Orchestrator Capability
 
