@@ -25,19 +25,19 @@ In Keyfactor Command create a new Certificate Store Type similar to the one belo
 SETTING TAB  |  CONFIG ELEMENT	| DESCRIPTION
 ------|-----------|------------------
 Basic |Name	|Descriptive name for the Store Type.  Google Cloud Provider Apigee can be used.
-Basic |Short Name	|The short name that identifies the registered functionality of the orchestrator. Must be GcpApigee
+Basic |Short Name	|The short name that identifies the registered functionality of the orchestrator. Must be **GcpApigee**
 Basic |Custom Capability|Unchecked
 Basic |Job Types	|Inventory, Add, Create and Remove are the supported job types. 
-Basic |Needs Server	|Must be checked
-Basic |Blueprint Allowed	|Unchecked
+Basic |Needs Server	|Unchecked
+Basic |Blueprint Allowed	|Checked
 Basic |Requires Store Password	|Determines if a store password is required when configuring an individual store.  This must be unchecked.
 Basic |Supports Entry Password	|Determined if an individual entry within a store can have a password.  This must be unchecked.
 Advanced |Store Path Type| Determines how the user will enter the store path when setting up the cert store.  Freeform
 Advanced |Supports Custom Alias	|Determines if an individual entry within a store can have a custom Alias.  This must be Required
 Advanced |Private Key Handling |Determines how the orchestrator deals with private keys.  Optional
 Advanced |PFX Password Style |Determines password style for the PFX Password. Default
-Custom Fields|Is Trust Store?|Name:IsTrustStore Display Name:Is Trust Store Type:String Default Value:None Required:True
-Custom Fields|Google Json Key File|Name:Google Json Key File Display Name:jsonKey Type:String Default Value:N/A Required:True
+Custom Fields|Is Trust Store?|Name:IsTrustStore Display Name:Is Trust Store Type:Boolean Default Value:False Required:True
+Custom Fields|Google Json Key File|Name: jsonKey Display Name: Google Json Key File Type:String Default Value:N/A Required:True
 Entry Parameters|N/A| There are no Entry Parameters
 
 **Basic Settings:**
@@ -50,9 +50,9 @@ Entry Parameters|N/A| There are no Entry Parameters
 
 **Custom Fields:**
 
-![](images/CertStoreType-CustomFields.gif)
 ![](images/CertStoreType-CustomFields1.gif)
 ![](images/CertStoreType-CustomFields2.gif)
+![](images/CertStoreType-CustomFields3.gif)
 
 **Entry Params:**
 
@@ -69,7 +69,7 @@ In Keyfactor Command create a new Certificate Store similar to the one below
 #### STORE CONFIGURATION 
 CONFIG ELEMENT	|DESCRIPTION
 ----------------|---------------
-Category	|The type of certificate store to be configured. Select category based on the display name configured above "GCP Apigee".
+Category	|The type of certificate store to be configured. Select category based on the display name configured above "Google Cloud Provider Apigee".
 Container	|This is a logical grouping of like stores. This configuration is optional and does not impact the functionality of the store.
 Client Machine	|The Base URL for the GCP Apigee REST Api. Should be apigee.googleapis.com
 Store Path	|This will point to the Apigee keystore that you are managing, and must be provided in the following format, where {org}, {env}, and {keystore} will be replaced with your environment-specific values organizations/{org}/environments/{env}/keystores/{keystore} .
