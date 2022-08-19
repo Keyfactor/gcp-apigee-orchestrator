@@ -104,8 +104,8 @@ Advanced |Store Path Type| Determines how the user will enter the store path whe
 Advanced |Supports Custom Alias	|Determines if an individual entry within a store can have a custom Alias.  This must be Required
 Advanced |Private Key Handling |Determines how the orchestrator deals with private keys.  Optional
 Advanced |PFX Password Style |Determines password style for the PFX Password. Default
-Custom Fields|Is Trust Store?|Name:IsTrustStore Display Name:Is Trust Store Type:Boolean Default Value:False Required:True
-Custom Fields|Google Json Key File|Name: jsonKey Display Name: Google Json Key File Type:String Default Value:N/A Required:True
+Custom Fields|Is Trust Store?|Name: **IsTrustStore** Display Name: **Is Trust Store?** Type: **Boolean** Default Value: **False** Required: **True**
+Custom Fields|Google Json Key File|Name: **jsonKey** Display Name: **Google Json Key File** Type: **Secret** Default Value: **N/A** Required: **True**
 Entry Parameters|N/A| There are no Entry Parameters
 
 **Basic Settings:**
