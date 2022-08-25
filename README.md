@@ -48,39 +48,33 @@ This agent implements four job types – Inventory, Management Add, Create and M
 
 	*User must create a service account through the Google Cloud Console that will be used to generate an OAuth 2.0 token when making Apigee API requests 
 
-		*Once the Google project is selected, click on the menu on the left and go to APIs & Services 
-
-		*Click on Credentials 
-
-		*Create new Service Account 
-
-	*If creating credentials for the first time, will need to Configure Consent Screen 
-
-		*Not sure if applicable to Service Account, only Client IDs 
-
-			*Settings Applied: 
-
-			*Service account name = Keyfactor-ApigeeAPI 
-
-			*Service account description 
-
-			*Select role:	 
-
-				*Quick Access > Basic > Owner 
-
-				*Click Done 
-
+		*Within the Google Cloud Console (console.cloud.google.com), select the project for which you will generate the OAuth 2.0 token
+		
+		*Click on the menu at the top-left and navigate to “APIs & Services”
+		
+		*Select “Credentials” from the sub-menu
+		
+		*Create a new Service Account by clicking the “Create Credentials” at the top of the screen and complete the following relevant to your environment:
+			*Service Account Details
+				*Service account name = Keyfactor-ApigeeAPI
+					*This can be something to uniquely identify what this service account will be used for
+				*Service account ID
+				*Service account description
+			*Grant this service account access to project
+				*Select role: Quick Access > Basic > Owner
+		*Click the “Done” button
+		
 	*Create service account key 
 
-		*Select the service account 
+		*From the “APIs & Services” page, select the service account you just created in the previous step
 
-		*Go to Keys 
+		*Go to the “Keys” tab located across the top of the page 
 
-		*Add key > Create new key 
+		*Click the “Add Key” button in the middle of the page and select the “Create new key” option 
 
-		*Make sure the key is a JSON 
-
-![](images/Google-Cloud Apigee Api.gif)
+		*Make sure the key type selected is a JSON
+			*(This is the key you will provide when configuring the cert store as outlined in the following instructions)
+			
 ![](images/ServiceAccountDetails.gif)
 ![](images/ServiceAccountPermissions.gif)
 ![](images/ServiceAccountJson.gif)
