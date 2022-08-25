@@ -1,6 +1,6 @@
 # Remote GCP Apigee
 
-Apigee is a Google Cloud Platform (GCP) software product for developing and managing APIs. The remote GCP Apigee AnyAgent allows for the remote management of Apigee certificate stores. Inventory and Management functions are supported. The AnyAgent performs operations utilizing the Apigee REST API.
+Apigee is a Google Cloud Platform (GCP) software product for developing and managing APIs. The remote GCP Apigee Orchestrator allows for the remote management of Apigee certificate stores. Inventory and Management functions are supported. The Orchestrator performs operations utilizing the Apigee REST API.
 
 #### Integration status: Production - Ready for use in production environments.
 
@@ -36,7 +36,7 @@ The Keyfactor Universal Orchestrator may be installed on either Windows or Linux
 
 **Overview**
 
-Apigee is a Google Cloud Platform GCP software product for developing and managing APIs.  The remote GCP Apigee Orchestrator allows for the remote management of Apigee certificate stores.  Inventory and Management functions are supported.
+Apigee is a Google Cloud Platform (GCP) software product for developing and managing APIs.  The Remote GCP Apigee Orchestrator allows for the remote management of Apigee certificate stores.  Inventory and Management functions are supported.
 
 This agent implements four job types – Inventory, Management Add, Create and Management Remove. Below are the steps necessary to configure this Orchestrator.
 
@@ -48,39 +48,33 @@ This agent implements four job types – Inventory, Management Add, Create and M
 
 	*User must create a service account through the Google Cloud Console that will be used to generate an OAuth 2.0 token when making Apigee API requests 
 
-		*Once the Google project is selected, click on the menu on the left and go to APIs & Services 
-
-		*Click on Credentials 
-
-		*Create new Service Account 
-
-	*If creating credentials for the first time, will need to Configure Consent Screen 
-
-		*Not sure if applicable to Service Account, only Client IDs 
-
-			*Settings Applied: 
-
-			*Service account name = Keyfactor-ApigeeAPI 
-
-			*Service account description 
-
-			*Select role:	 
-
-				*Quick Access > Basic > Owner 
-
-				*Click Done 
-
+		*Within the Google Cloud Console (console.cloud.google.com), select the project for which you will generate the OAuth 2.0 token
+		
+		*Click on the menu at the top-left and navigate to “APIs & Services”
+		
+		*Select “Credentials” from the sub-menu
+		
+		*Create a new Service Account by clicking the “Create Credentials” at the top of the screen and complete the following relevant to your environment:
+			*Service Account Details
+				*Service account name = Keyfactor-ApigeeAPI
+					*This can be something to uniquely identify what this service account will be used for
+				*Service account ID
+				*Service account description
+			*Grant this service account access to project
+				*Select role: Quick Access > Basic > Owner
+		*Click the “Done” button
+		
 	*Create service account key 
 
-		*Select the service account 
+		*From the “APIs & Services” page, select the service account you just created in the previous step
 
-		*Go to Keys 
+		*Go to the “Keys” tab located across the top of the page 
 
-		*Add key > Create new key 
+		*Click the “Add Key” button in the middle of the page and select the “Create new key” option 
 
-		*Make sure the key is a JSON 
-
-![](images/Google-Cloud Apigee Api.gif)
+		*Make sure the key type selected is a JSON
+			*(This is the key you will provide when configuring the cert store as outlined in the following instructions)
+			
 ![](images/ServiceAccountDetails.gif)
 ![](images/ServiceAccountPermissions.gif)
 ![](images/ServiceAccountJson.gif)
@@ -93,19 +87,19 @@ In Keyfactor Command create a new Certificate Store Type similar to the one belo
 SETTING TAB  |  CONFIG ELEMENT	| DESCRIPTION
 ------|-----------|------------------
 Basic |Name	|Descriptive name for the Store Type.  Google Cloud Provider Apigee can be used.
-Basic |Short Name	|The short name that identifies the registered functionality of the orchestrator. Must be GcpApigee
+Basic |Short Name	|The short name that identifies the registered functionality of the orchestrator. Must be **GcpApigee**
 Basic |Custom Capability|Unchecked
-Basic |Job Types	|Inventory, Add, Create and Remove are the supported job types. 
-Basic |Needs Server	|Must be checked
-Basic |Blueprint Allowed	|Unchecked
+Basic |Supported Job Types	|Inventory, Add, Create and Remove are the supported job types. 
+Basic |Needs Server	|Unchecked
+Basic |Blueprint Allowed	|Checked
 Basic |Requires Store Password	|Determines if a store password is required when configuring an individual store.  This must be unchecked.
-Basic |Supports Entry Password	|Determined if an individual entry within a store can have a password.  This must be unchecked.
+Basic |Supports Entry Password	|Determines if an individual entry within a store can have a password.  This must be unchecked.
 Advanced |Store Path Type| Determines how the user will enter the store path when setting up the cert store.  Freeform
 Advanced |Supports Custom Alias	|Determines if an individual entry within a store can have a custom Alias.  This must be Required
 Advanced |Private Key Handling |Determines how the orchestrator deals with private keys.  Optional
 Advanced |PFX Password Style |Determines password style for the PFX Password. Default
-Custom Fields|Is Trust Store?|Name:IsTrustStore Display Name:Is Trust Store Type:String Default Value:None Required:True
-Custom Fields|Google Json Key File|Name:Google Json Key File Display Name:jsonKey Type:String Default Value:N/A Required:True
+Custom Fields|Is Trust Store?|Name: **isTrustStore** Display Name: **Is Trust Store?** Type: **Boolean** Default Value: **False** Required: **True**
+Custom Fields|Google Json Key File|Name: **jsonKey** Display Name: **Google Json Key File** Type: **Secret** Default Value: **N/A** Required: **True**
 Entry Parameters|N/A| There are no Entry Parameters
 
 **Basic Settings:**
@@ -118,16 +112,16 @@ Entry Parameters|N/A| There are no Entry Parameters
 
 **Custom Fields:**
 
-![](images/CertStoreType-CustomFields.gif)
 ![](images/CertStoreType-CustomFields1.gif)
 ![](images/CertStoreType-CustomFields2.gif)
+![](images/CertStoreType-CustomFields3.gif)
 
 **Entry Params:**
 
 ![](images/CertStoreType-EntryParameters.gif)
 
 **2. Register the GCP Apigee Orchestrator with Keyfactor**
-See Keyfactor InstallingKeyfactorOrchestrators.pdf Documentation.  Get from your Keyfactor contact/representative.
+See Keyfactor "InstallingKeyfactorOrchestrators.pdf" Documentation.  Get from your Keyfactor contact/representative.
 
 **3. Create a GCP Apigee Certificate Store within Keyfactor Command**
 In Keyfactor Command create a new Certificate Store similar to the one below
@@ -137,10 +131,10 @@ In Keyfactor Command create a new Certificate Store similar to the one below
 #### STORE CONFIGURATION 
 CONFIG ELEMENT	|DESCRIPTION
 ----------------|---------------
-Category	|The type of certificate store to be configured. Select category based on the display name configured above "GCP Apigee".
+Category	|The type of certificate store to be configured. Select category based on the display name configured above "Google Cloud Provider Apigee".
 Container	|This is a logical grouping of like stores. This configuration is optional and does not impact the functionality of the store.
-Client Machine	|The Base URL for the GCP Apigee REST Api. Should be apigee.googleapis.com
-Store Path	|This will point to the Apigee keystore that you are managing, and must be provided in the following format, where {org}, {env}, and {keystore} will be replaced with your environment-specific values organizations/{org}/environments/{env}/keystores/{keystore} .
+Client Machine	|The Base URL for the GCP Apigee REST Api. Should be **apigee.googleapis.com**
+Store Path	|This will point to the Apigee keystore that you are managing, and must be provided in the following format, where {org}, {env}, and {keystore} will be replaced with your environment-specific values organizations/{org}/environments/{env}/keystores/{keystore} 
 Google Json Key File|Will need updated with the JSON key tied to the Apigee service account. You can copy and paste the entire key Json in the textboxes.
 Is Trust Store?|Should be checked if the Apigee keystore being managed is a truststore.
 Orchestrator	|This is the orchestrator server registered with the appropriate capabilities to manage this certificate store type. 
