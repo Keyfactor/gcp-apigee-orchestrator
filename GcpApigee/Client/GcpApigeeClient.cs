@@ -386,7 +386,6 @@ namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Client
                                     ApiStatus.StatusCode.Error);
                             }
 
-                        // TODO: Would it be possible for another cert to be added in the time of the renewal?
                         // Add the incoming alias to the managed keystore --- Check if alias exists in the managed keystore before attempting to add it
                         var tempManagedExists = AliasExists(alias, _project);
 
@@ -665,7 +664,6 @@ namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Client
                     {
                         case Pem.CertificateType.Cert:
                         {
-                            // TODO: Not sure this use case will ever get hit
                             break;
                         }
                         case Pem.CertificateType.CertWithKey:
@@ -1137,7 +1135,7 @@ namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Client
                     {
                         Logger.LogTrace("No Private Key??...");
                         if (i == 0
-                        ) // Public cert without a private key; TODO: This probably will never get hit in this use case since a private key will always get passed along
+                        ) // Public cert without a private key; 
                             pem.CertType = Pem.CertificateType.Cert;
                         else if (i == certChain.ChainElements.Count - 1) // Root cert = last cert in the chain
                             pem.CertType = Pem.CertificateType.Root;
