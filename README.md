@@ -12,11 +12,25 @@ The Universal Orchestrator is part of the Keyfactor software distribution and is
 
 The Universal Orchestrator is the successor to the Windows Orchestrator. This Capability plugin only works with the Universal Orchestrator and does not work with the Windows Orchestrator.
 
+
+
+## Support for Remote GCP Apigee
+
+Remote GCP Apigee is supported by Keyfactor for Keyfactor customers. If you have a support issue, please open a support ticket with your Keyfactor representative.
+
+###### To report a problem or suggest a new feature, use the **[Issues](../../issues)** tab. If you want to contribute actual bug fixes or proposed enhancements, use the **[Pull requests](../../pulls)** tab.
+___
+
+
+
 ---
 
 
 
+
 ## Platform Specific Notes
+
+The minimum version of the Universal Orchestrator Framework needed to run this version of the extension is 
 
 The Keyfactor Universal Orchestrator may be installed on either Windows or Linux based platforms. The certificate operations supported by a capability may vary based what platform the capability is installed on. The table below indicates what capabilities are supported based on which platform the encompassing Universal Orchestrator is running.
 | Operation | Win | Linux |
@@ -31,6 +45,7 @@ The Keyfactor Universal Orchestrator may be installed on either Windows or Linux
 
 
 ---
+
 
 **Remote GCP Apigee**
 
