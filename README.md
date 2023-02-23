@@ -6,7 +6,7 @@ Apigee is a Google Cloud Platform (GCP) software product for developing and mana
 
 ## About the Keyfactor Universal Orchestrator Capability
 
-This repository contains a Universal Orchestrator Extension which is a plugin to the Keyfactor Universal Orchestrator. Within the Keyfactor Platform, Orchestrators are used to manage “certificate stores” &mdash; collections of certificates and roots of trust that are found within and used by various applications.
+This repository contains a Universal Orchestrator Capability which is a plugin to the Keyfactor Universal Orchestrator. Within the Keyfactor Platform, Orchestrators are used to manage “certificate stores” &mdash; collections of certificates and roots of trust that are found within and used by various applications.
 
 The Universal Orchestrator is part of the Keyfactor software distribution and is available via the Keyfactor customer portal. For general instructions on installing Capabilities, see the “Keyfactor Command Orchestrator Installation and Configuration Guide” section of the Keyfactor documentation. For configuration details of this specific Capability, see below in this readme.
 
@@ -42,7 +42,9 @@ The Keyfactor Universal Orchestrator may be installed on either Windows or Linux
 
 
 
+
 ---
+
 
 **Remote GCP Apigee**
 
@@ -53,16 +55,44 @@ Apigee is a Google Cloud Platform (GCP) software product for developing and mana
 This agent implements four job types – Inventory, Management Add, Create and Management Remove. Below are the steps necessary to configure this Orchestrator.
 
 
+***
 **Google Cloud Configuration**
 
 1. Read up on Google Cloud Provider Apigee and how it works.
-2. A Google Service Account is needed with the following permissions (Note: Workload Identity Management Should be used but at the time of the writing it was not available in the .net library yet)
 
-3. The following Api Access is needed:
+	*User must create a service account through the Google Cloud Console that will be used to generate an OAuth 2.0 token when making Apigee API requests 
 
-4. Dowload the Json Credential file as shown below:
+		*Within the Google Cloud Console (console.cloud.google.com), select the project for which you will generate the OAuth 2.0 token
+		
+		*Click on the menu at the top-left and navigate to “APIs & Services”
+		
+		*Select “Credentials” from the sub-menu
+		
+		*Create a new Service Account by clicking the “Create Credentials” at the top of the screen and complete the following relevant to your environment:
+			*Service Account Details
+				*Service account name = Keyfactor-ApigeeAPI
+					*This can be something to uniquely identify what this service account will be used for
+				*Service account ID
+				*Service account description
+			*Grant this service account access to project
+				*Select role: Quick Access > Basic > Owner
+		*Click the “Done” button
+		
+	*Create service account key 
 
+		*From the “APIs & Services” page, select the service account you just created in the previous step
 
+		*Go to the “Keys” tab located across the top of the page 
+
+		*Click the “Add Key” button in the middle of the page and select the “Create new key” option 
+
+		*Make sure the key type selected is a JSON
+			*(This is the key you will provide when configuring the cert store as outlined in the following instructions)
+			
+![](images/ServiceAccountDetails.gif)
+![](images/ServiceAccountPermissions.gif)
+![](images/ServiceAccountJson.gif)
+*** 
 **1. Create the New Certificate Store Type for the GCP Apigee Orchestrator**
 
 In Keyfactor Command create a new Certificate Store Type similar to the one below:
@@ -150,29 +180,9 @@ Case Number|Case Name|Case Description|Overwrite Flag?|Trust Store?|Keystore Exi
 13|Remove From Keystore|This will test removing an alias from a Key Store|N/A|False|True|True|True|TC7|KS2|TC7 Alias/Certificate will be removed.|True|![](images/TC13Results.gif)
 14|Certificate without Private Key to Key Store|This will test adding a certificate without a private key to a Keystore|False|False|True|False|False|TC14|KS2|Error Stating Alias 'TC14' does not contain a key and the Apigee store 'KS2' is a keystore. Can only add certs with their key|True|![](images/TC14Results.gif)
 15|Certificate with Private Key to Trust Store|This will test adding a certificate with a private key to a Trust Store|False|True|True|True|True|TC15|KS1|'TC15' contains a key and the Apigee store 'KS1' is a truststore. Can only add public certs to a truststore.|![](images/TC15Results.gif)
-16|Add To Trust Store That Does Not Exist In Apigee|This will test adding a certificate without a private key to a Trust Store that does not exist in Apigee.|False|True|False|False|False|TC16|KS3|Unable to find keystore in Apigee|![](images/TC16Results.gif)
-17|Add To Key Store That Does Not Exist In Apigee|This will test adding a certificate with a private key to a Key Store that does not exist in Apigee.|False|False|False|False|True|TC17|KS4|Unable to find keystore in Apigee|![](images/TC17Results.gif)
-18|Create Trust Store|This will test creating a Trust Store in Apigee|N/A|True|False|N/A|N/A|TC18|KS3|Trust Store Gets Created In Apigee|![](images/TC18Results.gif)
-19|Create Key Store|This will test creating a Key Store in Apigee|N/A|False|False|N/A|N/A|TC17|KS4|Keystore Gets Created In Apigee|![](images/TC19Results.gif)
+16|Add To Trust Store That Does Not Exist In Apigee|This will test adding a certificate without a private key to a Trust Store that does not exist in Apigee.|False|True|False|False|False|TC16|KS3|Unable to find keystore in Apigee|True|![](images/TC16Results.gif)
+17|Add To Key Store That Does Not Exist In Apigee|This will test adding a certificate with a private key to a Key Store that does not exist in Apigee.|False|False|False|False|True|TC17|KS4|Unable to find keystore in Apigee|True|![](images/TC17Results.gif)
+18|Create Trust Store|This will test creating a Trust Store in Apigee|N/A|True|False|N/A|N/A|TC18|KS3|Trust Store Gets Created In Apigee|True|![](images/TC18Results.gif)
+19|Create Key Store|This will test creating a Key Store in Apigee|N/A|False|False|N/A|N/A|TC17|KS5|Key Store is created in Apigee|True|![](images/TC19Results.gif)
 
 
-# Remote GCP Apigee
-
-Apigee is a Google Cloud Platform (GCP) software product for developing and managing APIs. The remote GCP Apigee Orchestrator allows for the remote management of Apigee certificate stores. Inventory and Management functions are supported. The Orchestrator performs operations utilizing the Apigee REST API.
-
-#### Integration status: Prototype - Demonstration quality. Not for use in customer environments.
-
-## About the Keyfactor Universal Orchestrator Capability
-
-This repository contains a Universal Orchestrator Extension which is a plugin to the Keyfactor Universal Orchestrator. Within the Keyfactor Platform, Orchestrators are used to manage “certificate stores” &mdash; collections of certificates and roots of trust that are found within and used by various applications.
-
-The Universal Orchestrator is part of the Keyfactor software distribution and is available via the Keyfactor customer portal. For general instructions on installing Capabilities, see the “Keyfactor Command Orchestrator Installation and Configuration Guide” section of the Keyfactor documentation. For configuration details of this specific Capability, see below in this readme.
-
-The Universal Orchestrator is the successor to the Windows Orchestrator. This Capability plugin only works with the Universal Orchestrator and does not work with the Windows Orchestrator.
-
----
-
-
-
-
-=======
