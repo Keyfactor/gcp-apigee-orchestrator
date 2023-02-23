@@ -2,8 +2,10 @@
   "$schema": "https://keyfactor.github.io/integration-manifest-schema.json",
   "integration_type": "orchestrator",
   "name": "Remote GCP Apigee",
-  "status": "prototype",
+  "status": "production",
   "link_github": true,
+  "update_catalog": true,
+  "support_level": "kf-supported",
   "description": "Apigee is a Google Cloud Platform (GCP) software product for developing and managing APIs. The remote GCP Apigee Orchestrator allows for the remote management of Apigee certificate stores. Inventory and Management functions are supported. The Orchestrator performs operations utilizing the Apigee REST API.",
   "about": {
     "orchestrator": {
