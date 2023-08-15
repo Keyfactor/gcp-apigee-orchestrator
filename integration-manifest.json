@@ -1,7 +1,7 @@
 {
   "$schema": "https://keyfactor.github.io/integration-manifest-schema.json",
   "integration_type": "orchestrator",
-  "name": "Remote GCP Apigee",
+  "name": "GCP Apigee",
   "status": "production",
   "link_github": true,
   "update_catalog": true,
