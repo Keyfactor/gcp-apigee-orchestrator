@@ -1,30 +1,30 @@
 {
-  "$schema": "https://keyfactor.github.io/integration-manifest-schema.json",
-  "integration_type": "orchestrator",
-  "name": "Remote GCP Apigee",
-  "status": "production",
-  "link_github": true,
-  "description": "Apigee is a Google Cloud Platform (GCP) software product for developing and managing APIs. The remote GCP Apigee Orchestrator allows for the remote management of Apigee certificate stores. Inventory and Management functions are supported. The Orchestrator performs operations utilizing the Apigee REST API.",
-  "about": {
-    "orchestrator": {
-      "win": {
-        "supportsCreateStore": true,
-        "supportsDiscovery": false,
-        "supportsManagementAdd": true,
-        "supportsManagementRemove": true,
-        "supportsReenrollment": false,
-        "supportsInventory": true,
-        "platformSupport": "Unused"
-      },
-      "linux": {
-        "supportsCreateStore": false,
-        "supportsDiscovery": false,
-        "supportsManagementAdd": false,
-        "supportsManagementRemove": false,
-        "supportsReenrollment": false,
-        "supportsInventory": false,
-        "platformSupport": "Unused"
-      }
-    }
-  }
+"$schema": "https://keyfactor.github.io/integration-manifest-schema.json",
+"integration_type": "orchestrator",
+"name": "Remote GCP Apigee",
+"status": "production",
+"link_github": true,
+"description": "Apigee is a Google Cloud Platform (GCP) software product for developing and managing APIs. The remote GCP Apigee Orchestrator allows for the remote management of Apigee certificate stores. Inventory and Management functions are supported. The Orchestrator performs operations utilizing the Apigee REST API.",
+"about": {
+"orchestrator": {
+"win": {
+"supportsCreateStore": true,
+"supportsDiscovery": false,
+"supportsManagementAdd": true,
+"supportsManagementRemove": true,
+"supportsReenrollment": false,
+"supportsInventory": true,
+"platformSupport": "Unused"
+},
+"linux": {
+"supportsCreateStore": false,
+"supportsDiscovery": false,
+"supportsManagementAdd": false,
+"supportsManagementRemove": false,
+"supportsReenrollment": false,
+"supportsInventory": false,
+"platformSupport": "Unused"
+}
+}
+}
 }
