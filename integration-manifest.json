@@ -4,9 +4,14 @@
   "name": "Remote GCP Apigee",
   "status": "production",
   "link_github": true,
+  "update_catalog": true,
+  "support_level": "kf-supported",
+  "release_dir": "GcpApigee/bin/Release/netcoreapp3.1",
   "description": "Apigee is a Google Cloud Platform (GCP) software product for developing and managing APIs. The remote GCP Apigee Orchestrator allows for the remote management of Apigee certificate stores. Inventory and Management functions are supported. The Orchestrator performs operations utilizing the Apigee REST API.",
   "about": {
     "orchestrator": {
+      "keyfactor_platform_version": "9.1.0",
+      "UOFramework": "10.1",
       "win": {
         "supportsCreateStore": true,
         "supportsDiscovery": false,
