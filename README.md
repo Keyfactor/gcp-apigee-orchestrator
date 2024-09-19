@@ -1,21 +1,34 @@
+
 # Remote GCP Apigee
 
 Apigee is a Google Cloud Platform (GCP) software product for developing and managing APIs. The remote GCP Apigee Orchestrator allows for the remote management of Apigee certificate stores. Inventory and Management functions are supported. The Orchestrator performs operations utilizing the Apigee REST API.
 
 #### Integration status: Production - Ready for use in production environments.
 
-## About the Keyfactor Universal Orchestrator Capability
+## About the Keyfactor Universal Orchestrator Extension
 
-This repository contains a Universal Orchestrator Capability which is a plugin to the Keyfactor Universal Orchestrator. Within the Keyfactor Platform, Orchestrators are used to manage “certificate stores” &mdash; collections of certificates and roots of trust that are found within and used by various applications.
+This repository contains a Universal Orchestrator Extension which is a plugin to the Keyfactor Universal Orchestrator. Within the Keyfactor Platform, Orchestrators are used to manage “certificate stores” &mdash; collections of certificates and roots of trust that are found within and used by various applications.
 
-The Universal Orchestrator is part of the Keyfactor software distribution and is available via the Keyfactor customer portal. For general instructions on installing Capabilities, see the “Keyfactor Command Orchestrator Installation and Configuration Guide” section of the Keyfactor documentation. For configuration details of this specific Capability, see below in this readme.
+The Universal Orchestrator is part of the Keyfactor software distribution and is available via the Keyfactor customer portal. For general instructions on installing Extensions, see the “Keyfactor Command Orchestrator Installation and Configuration Guide” section of the Keyfactor documentation. For configuration details of this specific Extension see below in this readme.
 
-The Universal Orchestrator is the successor to the Windows Orchestrator. This Capability plugin only works with the Universal Orchestrator and does not work with the Windows Orchestrator.
+The Universal Orchestrator is the successor to the Windows Orchestrator. This Orchestrator Extension plugin only works with the Universal Orchestrator and does not work with the Windows Orchestrator.
+
+## Support for Remote GCP Apigee
+
+Remote GCP Apigee is supported by Keyfactor for Keyfactor customers. If you have a support issue, please open a support ticket via the Keyfactor Support Portal at https://support.keyfactor.com
+
+###### To report a problem or suggest a new feature, use the **[Issues](../../issues)** tab. If you want to contribute actual bug fixes or proposed enhancements, use the **[Pull requests](../../pulls)** tab.
+
+---
+
 
 ---
 
 
 
+## Keyfactor Version Supported
+
+The minimum version of the Keyfactor Universal Orchestrator Framework needed to run this version of the extension is 10.1
 ## Platform Specific Notes
 
 The Keyfactor Universal Orchestrator may be installed on either Windows or Linux based platforms. The certificate operations supported by a capability may vary based what platform the capability is installed on. The table below indicates what capabilities are supported based on which platform the encompassing Universal Orchestrator is running.
@@ -25,12 +38,15 @@ The Keyfactor Universal Orchestrator may be installed on either Windows or Linux
 |Supports Management Remove|&check; |  |
 |Supports Create Store|&check; |  |
 |Supports Discovery|  |  |
-|Supports Renrollment|  |  |
+|Supports Reenrollment|  |  |
 |Supports Inventory|&check; |  |
 
 
 
+
+
 ---
+
 
 **Remote GCP Apigee**
 
@@ -170,5 +186,8 @@ Case Number|Case Name|Case Description|Overwrite Flag?|Trust Store?|Keystore Exi
 17|Add To Key Store That Does Not Exist In Apigee|This will test adding a certificate with a private key to a Key Store that does not exist in Apigee.|False|False|False|False|True|TC17|KS4|Unable to find keystore in Apigee|True|![](images/TC17Results.gif)
 18|Create Trust Store|This will test creating a Trust Store in Apigee|N/A|True|False|N/A|N/A|TC18|KS3|Trust Store Gets Created In Apigee|True|![](images/TC18Results.gif)
 19|Create Key Store|This will test creating a Key Store in Apigee|N/A|False|False|N/A|N/A|TC17|KS5|Key Store is created in Apigee|True|![](images/TC19Results.gif)
+
+
+When creating cert store type manually, that store property names and entry parameter names are case sensitive
 
 
