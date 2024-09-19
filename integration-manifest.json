@@ -29,7 +29,53 @@
         "supportsReenrollment": false,
         "supportsInventory": false,
         "platformSupport": "Unused"
-      }
+      },
+      {
+      	"Name": "Google Cloud Proivder Apigee",
+      	"ShortName": "GcpApigee",
+      	"Capability": "GcpApigee",
+      	"LocalStore": false,
+      	"SupportedOperations": {
+      		"Add": true,
+      		"Create": true,
+      		"Discovery": false,
+      		"Enrollment": false,
+      		"Remove": true
+      	},
+      	"Properties": [
+      		{
+      			"StoreTypeId": 116,
+      			"Name": "isTrustStore",
+      			"DisplayName": "Is Trust Store?",
+      			"Type": "Bool",
+      			"DependsOn": null,
+      			"DefaultValue": "false",
+      			"Required": true
+      		},
+      		{
+      			"StoreTypeId": 116,
+      			"Name": "jsonKey",
+      			"DisplayName": "Json Key File",
+      			"Type": "Secret",
+      			"DependsOn": null,
+      			"DefaultValue": null,
+      			"Required": true
+      		}
+      	],
+      	"EntryParameters": [],
+      	"PasswordOptions": {
+      		"EntrySupported": false,
+      		"StoreRequired": false,
+      		"Style": "Default"
+      	},
+      	"PrivateKeyAllowed": "Optional",
+      	"JobProperties": [],
+      	"ServerRequired": false,
+      	"PowerShell": false,
+      	"BlueprintAllowed": true,
+      	"CustomAliasAllowed": "Required",
+      	"InventoryEndpoint": "/AnyInventory/Update"
+      }      
     }
   }
 }
