@@ -84,7 +84,7 @@ namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Jobs
                         {
                             _logger.LogTrace(
                                 $"Building Cert List Inventory Item Alias: {c.AliasName} Pem: {c.Certificates}");
-                            return BuildInventoryItem(c.AliasName, c, true); //todo figure out how to see if private key exists not in Google Api return
+                            return BuildInventoryItem(c.AliasName, c, true);
                         }
                         catch
                         {
