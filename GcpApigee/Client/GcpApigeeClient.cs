@@ -104,7 +104,7 @@ namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Client
                     var aliases = GetAliases(storePath);
                     Logger.LogTrace($"Got Aliases : {JsonConvert.SerializeObject(aliases)}");
                     // For each alias, create an object containing the certificate portion of the alias as a PEM
-                    certsFound.AddRange(aliases.Select(alias => GetCertificate(alias, storePath)).Select(ConvertToPem));
+                    certsFound.AddRange(aliases.Select(alias => GetCertificate(alias, storePath)));
                     Logger.LogTrace("Added Range...");
                 }
                 else
