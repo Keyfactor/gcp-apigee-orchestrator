@@ -12,11 +12,11 @@ Apigee is a Google Cloud Platform (GCP) software product for developing and mana
 
 		*Within the Google Cloud Console (console.cloud.google.com), select the project for which you will generate the OAuth 2.0 token
 		
-		*Click on the menu at the top-left and navigate to “APIs & Services”
+		*Click on the menu at the top-left and navigate to "APIs & Services"
 		
-		*Select “Credentials” from the sub-menu
+		*Select "Credentials" from the sub-menu
 		
-		*Create a new Service Account by clicking the “Create Credentials” at the top of the screen and complete the following relevant to your environment:
+		*Create a new Service Account by clicking the "Create Credentials" at the top of the screen and complete the following relevant to your environment:
 			*Service Account Details
 				*Service account name = Keyfactor-ApigeeAPI
 					*This can be something to uniquely identify what this service account will be used for
@@ -24,15 +24,15 @@ Apigee is a Google Cloud Platform (GCP) software product for developing and mana
 				*Service account description
 			*Grant this service account access to project
 				*Select role: Quick Access > Basic > Owner
-		*Click the “Done” button
+		*Click the "Done" button
 		
 	*Create service account key 
 
-		*From the “APIs & Services” page, select the service account you just created in the previous step
+		*From the "APIs & Services" page, select the service account you just created in the previous step
 
-		*Go to the “Keys” tab located across the top of the page 
+		*Go to the "Keys" tab located across the top of the page 
 
-		*Click the “Add Key” button in the middle of the page and select the “Create new key” option 
+		*Click the "Add Key" button in the middle of the page and select the "Create new key" option 
 
 		*Make sure the key type selected is a JSON
 			*(This is the key you will provide when configuring the cert store as outlined in the following instructions)
