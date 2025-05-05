@@ -51,7 +51,7 @@ Before installing the GCP Apigee Universal Orchestrator extension, we recommend 
 
 **Google Cloud Configuration**
 
-1. Read up on Google Cloud Provider Apigee and how it works.
+1. Read up on Google Cloud Provider Apigee and how it works. 
 
 	*User must create a service account through the Google Cloud Console that will be used to generate an OAuth 2.0 token when making Apigee API requests 
 
