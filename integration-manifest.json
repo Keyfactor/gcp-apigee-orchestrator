@@ -1,77 +1,68 @@
 {
-"$schema": "https://keyfactor.github.io/integration-manifest-schema.json",
-"integration_type": "orchestrator",
-"name": "Remote GCP Apigee",
-"status": "production",
-"link_github": true,
-"update_catalog": true,
-"support_level": "kf-supported",
-"release_dir": "GcpApigee/bin/Release/netcoreapp3.1",
-"description": "Apigee is a Google Cloud Platform (GCP) software product for developing and managing APIs. The remote GCP Apigee Orchestrator allows for the remote management of Apigee certificate stores. Inventory and Management functions are supported. The Orchestrator performs operations utilizing the Apigee REST API.",
-"about": {
-"orchestrator": {
-"keyfactor_platform_version": "9.1.0",
-"UOFramework": "10.1",
-"win": {
-"supportsCreateStore": true,
-"supportsDiscovery": false,
-"supportsManagementAdd": true,
-"supportsManagementRemove": true,
-"supportsReenrollment": false,
-"supportsInventory": true,
-"platformSupport": "Unused"
-},
-"linux": {
-"supportsCreateStore": false,
-"supportsDiscovery": false,
-"supportsManagementAdd": false,
-"supportsManagementRemove": false,
-"supportsReenrollment": false,
-"supportsInventory": false,
-"platformSupport": "Unused"
-},
-"Name": "Google Cloud Proivder Apigee",
-"ShortName": "GcpApigee",
-"Capability": "GcpApigee",
-"LocalStore": false,
-"SupportedOperations": {
-"Add": true,
-"Create": true,
-"Discovery": false,
-"Enrollment": false,
-"Remove": true
-},
-"Properties": [
-{
-"Name": "isTrustStore",
-"DisplayName": "Is Trust Store?",
-"Type": "Bool",
-"DependsOn": null,
-"DefaultValue": "false",
-"Required": true
-},
-{
-"Name": "jsonKey",
-"DisplayName": "Json Key File",
-"Type": "Secret",
-"DependsOn": null,
-"DefaultValue": null,
-"Required": true
-}
-],
-"EntryParameters": [],
-"PasswordOptions": {
-"EntrySupported": false,
-"StoreRequired": false,
-"Style": "Default"
-},
-"PrivateKeyAllowed": "Optional",
-"JobProperties": [],
-"ServerRequired": false,
-"PowerShell": false,
-"BlueprintAllowed": true,
-"CustomAliasAllowed": "Required",
-"InventoryEndpoint": "/AnyInventory/Update"
-}
-}
+  "$schema": "https://keyfactor.github.io/integration-manifest-schema.json",
+  "integration_type": "orchestrator",
+  "name": "GCP Apigee",
+  "status": "production",
+  "link_github": true,
+  "update_catalog": true,
+  "support_level": "kf-supported",
+  "release_dir": "GcpApigee/bin/Release",
+  "release_project": "GcpApigee/GcpApigee.csproj",
+  "description": "Apigee is a Google Cloud Platform (GCP) software product for developing and managing APIs. The remote GCP Apigee Orchestrator allows for the remote management of Apigee certificate stores. Inventory and Management functions are supported. The Orchestrator performs operations utilizing the Apigee REST API.",
+  "about": {
+    "orchestrator": {
+      "UOFramework": "10.4",
+      "pam_support": true,
+      "keyfactor_platform_version": "10.4",
+      "store_types": [
+        {
+          "Name": "Google Cloud Provider Apigee",
+          "ShortName": "GcpApigee",
+          "Capability": "GcpApigee",
+          "ServerRequired": false,
+          "BlueprintAllowed": false,
+          "CustomAliasAllowed": "Required",
+          "PowerShell": false,
+          "PrivateKeyAllowed": "Optional",
+          "SupportedOperations": {
+            "Add": true,
+            "Create": true,
+            "Discovery": false,
+            "Enrollment": false,
+            "Remove": true
+          },
+          "PasswordOptions": {
+            "EntrySupported": false,
+            "StoreRequired": false,
+            "Style": "Default"
+          },
+          "Properties": [
+            {
+              "Name": "isTrustStore",
+              "DisplayName": "Is Trust Store?",
+              "Type": "Bool",
+              "DependsOn": "",
+              "DefaultValue": "false",
+              "Required": true,
+              "IsPAMEligible": false,
+              "Description": "Should be checked if the Apigee keystore being managed is a truststore."
+            },
+            {
+              "Name": "jsonKey",
+              "DisplayName": "Google Json Key File",
+              "Type": "Secret",
+              "DependsOn": "",
+              "DefaultValue": "",
+              "Required": true,
+              "IsPAMEligible": false,
+              "Description": "The JSON key tied to the Apigee service account. You can copy and paste the entire Json key in the textbox when creating a certificate store in the Keyfactor Command UI."
+            }
+          ],
+          "EntryParameters": [],
+          "ClientMachineDescription": "The Base URL for the GCP Apigee REST Api. Should be *apigee.googleapis.com*",
+          "StorePathDescription": "The Apigee keystore being managed.  Must be provided in the following format: organizations/{org}/environments/{env}/keystores/{keystore}, where {org}, {env}, and {keystore} will be replaced with your environment-specific values."
+        }
+      ]
+    }
+  }
 }
