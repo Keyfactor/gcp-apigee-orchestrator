@@ -16,16 +16,12 @@ namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Jobs
 {
     public class Inventory : JobBase, IInventoryJobExtension
     {
+        private readonly ILogger _logger;
+
         public Inventory(IPAMSecretResolver resolver)
         {
             _resolver = resolver;
-        }
-
-        private readonly ILogger<Inventory> _logger;
-
-        public Inventory(ILogger<Inventory> logger)
-        {
-            _logger = logger;
+            _logger = LogHandler.GetClassLogger(this.GetType());
         }
 
         public JobResult ProcessJob(InventoryJobConfiguration jobConfiguration,
@@ -63,7 +59,6 @@ namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Jobs
                 try
                 {
                     _logger.LogTrace("Creating Api Client...");
-                    SetPAMSecrets(storeProps.JsonKey, _logger);
                     client = new GcpApigeeClient(config, JsonKey);
                     _logger.LogTrace("ApiClient Created...");
                 }

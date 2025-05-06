@@ -17,9 +17,10 @@ namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Jobs
         public Management(IPAMSecretResolver resolver)
         {
             _resolver = resolver;
+            _logger = LogHandler.GetClassLogger(this.GetType());
         }
 
-        private readonly ILogger<Management> _logger;
+        private readonly ILogger _logger;
 
         public Management(ILogger<Management> logger)
         {
