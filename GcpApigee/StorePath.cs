@@ -9,6 +9,10 @@ namespace Keyfactor.Extensions.Orchestrator.GcpApigee
         [DefaultValue("global")]
         public string Location { get; set; }
 
-        [JsonProperty("Project Number")] public string ProjectNumber { get; set; }
+        [JsonProperty("Project Number")] 
+        public string ProjectNumber { get; set; }
+
+        [JsonProperty("jsonKey")]
+        public string JsonKey { get; set; }
     }
 }
