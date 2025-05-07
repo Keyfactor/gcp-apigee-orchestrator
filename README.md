@@ -93,13 +93,22 @@ To use the GCP Apigee Universal Orchestrator extension, you **must** create the 
 
 
 
-* **Create GcpApigee using kfutil**:
+### Using kfutil:
 
-    ```shell
-    # Google Cloud Provider Apigee
-    kfutil store-types create GcpApigee
-    ```
+#### Using online definition from GitHub:
+This will reach out to GitHub and pull the latest store-type definition
+```shell
+# Google Cloud Provider Apigee
+kfutil store-types create GcpApigee
+```
 
+#### Offline creation using integration-manifest file:
+If required, it is possible to create store types from the [integration-manifest.json](./integration-manifest.json) included in this repo.
+```shell
+kfutil store-types create --from-file integration-manifest.json
+```
+
+### Manually
 * **Create GcpApigee manually in the Command UI**:
     <details><summary>Create GcpApigee manually in the Command UI</summary>
 
