@@ -22,11 +22,6 @@ namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Jobs
 
         private readonly ILogger _logger;
 
-        public Management(ILogger<Management> logger)
-        {
-            _logger = logger;
-        }
-
         public JobResult ProcessJob(ManagementJobConfiguration jobConfiguration)
         {
             try
