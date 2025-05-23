@@ -1,26 +1,26 @@
 ﻿using System;
+using System.Collections.Generic;
 using Google;
 using Keyfactor.Extensions.Orchestrator.GcpApigee.Client;
 using Keyfactor.Extensions.Orchestrator.GcpApigee.Models;
 using Keyfactor.Logging;
 using Keyfactor.Orchestrators.Common.Enums;
 using Keyfactor.Orchestrators.Extensions;
+using Keyfactor.Orchestrators.Extensions.Interfaces;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Jobs
 {
-    public class Management : IManagementJobExtension
+    public class Management : JobBase, IManagementJobExtension
     {
-
-        private readonly ILogger<Management> _logger;
-
-        public Management(ILogger<Management> logger)
+        public Management(IPAMSecretResolver resolver)
         {
-            _logger = logger;
+            _resolver = resolver;
+            _logger = LogHandler.GetClassLogger(this.GetType());
         }
 
-        public string ExtensionName => "GcpApigee";
+        private readonly ILogger _logger;
 
         public JobResult ProcessJob(ManagementJobConfiguration jobConfiguration)
         {
@@ -49,6 +49,11 @@ namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Jobs
                     FailureMessage =
                         "Invalid Management Operation"
                 };
+
+                var storeProperties =
+                    JsonConvert.DeserializeObject<Dictionary<string, string>>(config.CertificateStoreDetails.Properties);
+
+                SetPAMSecrets(storeProperties["jsonKey"], _logger);
 
                 switch (config.OperationType.ToString())
                 {
@@ -108,7 +113,7 @@ namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Jobs
                     try
                     {
                         _logger.LogTrace("Creating Api Client...");
-                        client = new GcpApigeeClient(config);
+                        client = new GcpApigeeClient(config, JsonKey);
                         _logger.LogTrace("ApiClient Created...");
                     }
                     catch (Exception ex)
@@ -186,7 +191,7 @@ namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Jobs
                     try
                     {
                         _logger.LogTrace("Creating Api Client...");
-                        client = new GcpApigeeClient(config);
+                        client = new GcpApigeeClient(config, JsonKey);
                         _logger.LogTrace("ApiClient Created...");
                     }
                     catch (Exception ex)
@@ -267,7 +272,7 @@ namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Jobs
                     try
                     {
                         _logger.LogTrace("Creating Api Client...");
-                        client = new GcpApigeeClient(config);
+                        client = new GcpApigeeClient(config, JsonKey);
                         _logger.LogTrace("ApiClient Created...");
                     }
                     catch (Exception ex)
