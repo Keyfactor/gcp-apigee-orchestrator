@@ -34,23 +34,23 @@ namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Client
         private readonly string _project;
         private readonly string _restClientUrl;
 
-        public GcpApigeeClient(InventoryJobConfiguration config)
+        public GcpApigeeClient(InventoryJobConfiguration config, string jsonKey)
         {
             try
             {
                 Logger = LogHandler.GetClassLogger<GcpApigeeClient>();
+                _jsonKey = jsonKey;
                 _project = config.CertificateStoreDetails.StorePath;
                 var storeProperties =
                     JsonConvert.DeserializeObject<Dictionary<string, string>>(config.CertificateStoreDetails.Properties);
                 if (storeProperties != null)
                 {
-                    _jsonKey = storeProperties["jsonKey"];
                     _restClientUrl = "https://" + config.CertificateStoreDetails.ClientMachine;
                     _isTrustStore = Convert.ToBoolean(storeProperties["isTrustStore"]);
                 }
 
                 Logger.LogDebug("project: " + _project);
-                Logger.LogDebug("jsonKey size:" + _jsonKey.Length);
+                Logger.LogDebug("jsonKey size:" + jsonKey.Length);
                 Logger.LogDebug("trust store:" + _isTrustStore);
             }
             catch (Exception e)
@@ -60,23 +60,23 @@ namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Client
             }
         }
 
-        public GcpApigeeClient(ManagementJobConfiguration config)
+        public GcpApigeeClient(ManagementJobConfiguration config, string jsonKey)
         {
             try
             {
                 Logger = LogHandler.GetClassLogger<GcpApigeeClient>();
+                _jsonKey = jsonKey;
                 _project = config.CertificateStoreDetails.StorePath;
                 var storeProperties =
                     JsonConvert.DeserializeObject<Dictionary<string, string>>(config.CertificateStoreDetails.Properties);
                 if (storeProperties != null)
                 {
-                    _jsonKey = storeProperties["jsonKey"];
                     _restClientUrl = "https://" + config.CertificateStoreDetails.ClientMachine;
                     _isTrustStore = Convert.ToBoolean(storeProperties["isTrustStore"]);
                 }
 
                 Logger.LogDebug("project: " + _project);
-                Logger.LogDebug("jsonKey size:" + _jsonKey.Length);
+                Logger.LogDebug("jsonKey size:" + jsonKey.Length);
                 Logger.LogDebug("trust store:" + _isTrustStore);
             }
             catch (Exception e)

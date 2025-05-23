@@ -4,6 +4,7 @@ using Keyfactor.Extensions.Orchestrator.GcpApigee.Models;
 using Keyfactor.Logging;
 using Keyfactor.Orchestrators.Common.Enums;
 using Keyfactor.Orchestrators.Extensions;
+using Keyfactor.Orchestrators.Extensions.Interfaces;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
@@ -13,16 +14,15 @@ using System.Text;
 
 namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Jobs
 {
-    public class Inventory : IInventoryJobExtension
+    public class Inventory : JobBase, IInventoryJobExtension
     {
-        private readonly ILogger<Inventory> _logger;
+        private readonly ILogger _logger;
 
-        public Inventory(ILogger<Inventory> logger)
+        public Inventory(IPAMSecretResolver resolver)
         {
-            _logger = logger;
+            _resolver = resolver;
+            _logger = LogHandler.GetClassLogger(this.GetType());
         }
-
-        public string ExtensionName => "GcpApigee";
 
         public JobResult ProcessJob(InventoryJobConfiguration jobConfiguration,
             SubmitInventoryUpdate submitInventoryUpdate)
@@ -50,6 +50,8 @@ namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Jobs
 
                 var storeProps = JsonConvert.DeserializeObject<StorePath>(config.CertificateStoreDetails.Properties,
                     new JsonSerializerSettings {DefaultValueHandling = DefaultValueHandling.Populate});
+                
+                SetPAMSecrets(storeProps.JsonKey, _logger);
 
                 _logger.LogTrace($"Store Properties: {JsonConvert.SerializeObject(storeProps)}");
 
@@ -57,7 +59,7 @@ namespace Keyfactor.Extensions.Orchestrator.GcpApigee.Jobs
                 try
                 {
                     _logger.LogTrace("Creating Api Client...");
-                    client = new GcpApigeeClient(config);
+                    client = new GcpApigeeClient(config, JsonKey);
                     _logger.LogTrace("ApiClient Created...");
                 }
                 catch (Exception ex)
